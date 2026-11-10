@@ -1,0 +1,66 @@
+# ---------- macOS ----------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.apdisk
+Icon?
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ---------- Virtual environments ----------
+venv/
+.venv/
+env/
+ENV/
+
+# ---------- Secrets / local config ----------
+.env
+.env.*
+!.env.example
+config_local.py
+instance/
+
+# ---------- Flask ----------
+*.log
+flask_session/
+
+# ---------- MySQL / local database files ----------
+*.sql.bak
+*.dump
+*.sqlite
+*.sqlite3
+mysql_data/
+
+# ---------- Node (only if you add a separate frontend) ----------
+node_modules/
+npm-debug.log*
+
+# ---------- Editors / IDEs ----------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---------- Submission artifacts ----------
+*.zip
+*.mp4
