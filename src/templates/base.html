@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}ICC Rankings{% endblock %} | ICC Rankings DB</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap bar">
+    <a class="logo" href="{{ url_for('home') }}"><span>ICC</span> RANKINGS</a>
+    <form class="search" action="{{ url_for('search') }}" method="get">
+      <input type="text" name="q" placeholder="Search players, teams, roles" value="{{ request.args.get('q','') }}" maxlength="60">
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  <nav class="subnav wrap">
+    <a href="{{ url_for('home') }}">Overview</a>
+    <a href="{{ url_for('team_rankings') }}">Team Rankings</a>
+    <a href="{{ url_for('player_rankings') }}">Player Rankings</a>
+    <a href="{{ url_for('compare') }}">Player Comparison</a>
+    <a href="{{ url_for('movers') }}">Movers</a>
+    <a href="{{ url_for('teams_page') }}">Teams</a>
+    <a href="{{ url_for('matches_page') }}">Matches</a>
+    <a href="{{ url_for('series_list') }}">Series</a>
+    <a href="{{ url_for('h2h') }}">Head-to-Head</a>
+    <a href="{{ url_for('stats') }}">Stats</a>
+    <a href="{{ url_for('admin') }}">Admin</a>
+  </nav>
+</header>
+<main class="wrap">
+  {% with msgs = get_flashed_messages(with_categories=true) %}
+    {% for cat, m in msgs %}<div class="flash {{ cat }}">{{ m }}</div>{% endfor %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="wrap foot">Data taken from www.icc-cricket.com rankings, player profiles and match centre (fetched Nov 2026). Course project &middot; Team 45.</footer>
+</body>
+</html>

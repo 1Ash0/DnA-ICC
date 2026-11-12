@@ -1,0 +1,42 @@
+{% extends "base.html" %}{% from "_macros.html" import name with context %}
+{% block title %}Match {{ m.match_id }}{% endblock %}
+{% block content %}
+<p class="muted"><a href="{{ url_for('series_page', sid=m.series_id) }}">{{ m.series_name }}</a> &middot; Match {{ m.match_no }} &middot; {{ FORMAT_LABEL[m.format_code] }}</p>
+<h1>{% for t in teams %}<a href="{{ url_for('team_page', tid=t.team_id) }}">{{ t.team_name|upper }}</a>{{ ' v ' if not loop.last }}{% endfor %}</h1>
+<p>{{ m.match_date|d }} &middot; {{ m.ground }}, {{ m.city }}, {{ m.country }} &middot; <span class="badge {{ m.status|lower }}">{{ m.status }}</span>
+  {% if m.format_code=='TEST' %}&middot; {{ m.days_played or '-' }} of {{ m.scheduled_days }} days{% else %}&middot; {{ m.overs_per_side }} overs a side{% if m.dls_applied %} (DLS){% endif %}{% endif %}</p>
+
+<div class="grid2">
+{% for t in teams %}
+<section class="card"><h3>{{ t.team_name }} <span class="muted">({{ t.side }})</span></h3>
+  <p class="big">{{ t.total_runs if t.total_runs is not none else '-' }} <span class="badge">{{ t.result or 'no result yet' }}</span></p>
+  <table class="rank small"><tr><th>Player</th><th class="r">R</th><th class="r">B</th><th class="r">O</th><th class="r">W</th><th class="r">Runs</th></tr>
+  {% for c in card if c.team_id==t.team_id %}<tr><td>{{ name(c) }}</td>
+    <td class="r">{{ c.runs_scored if c.batted else 'DNB' }}</td><td class="r">{{ c.balls_faced if c.batted else '' }}</td>
+    <td class="r">{{ c.overs if c.bowled else '' }}</td><td class="r">{{ c.wickets_taken if c.bowled else '' }}</td><td class="r">{{ c.runs_conceded if c.bowled else '' }}</td></tr>
+  {% else %}<tr><td colspan="6">No scorecard (appearances are only recorded for completed matches).</td></tr>{% endfor %}</table>
+</section>
+{% endfor %}
+</div>
+
+<section class="card admin-box">
+  <h3>Admin actions</h3>
+  <div class="forms">
+    <form method="post" action="{{ url_for('match_result', mid=m.match_id) }}">
+      <h4>Change match result</h4>
+      <label>Status <select name="status">{% for s in ['Scheduled','Completed','Abandoned'] %}<option {{ 'selected' if s==m.status }}>{{ s }}</option>{% endfor %}</select></label>
+      {% for t in teams %}
+      <div>{{ t.team_name }}: runs <input type="number" name="runs_{{ t.team_id }}" value="{{ t.total_runs if t.total_runs is not none else '' }}" style="width:6em">
+        <select name="result_{{ t.team_id }}"><option value="">(none)</option>{% for r in ['Won','Lost','Drawn','Tied','No result'] %}<option {{ 'selected' if r==t.result }}>{{ r }}</option>{% endfor %}</select></div>
+      {% endfor %}
+      <button>Save result</button>
+      <p class="muted">Both results must agree (trigger). Changing a result flags both teams' latest rating as "needs recompute".</p>
+    </form>
+    <form method="post" action="{{ url_for('match_delete', mid=m.match_id) }}" onsubmit="return confirm('Delete this match?')">
+      <h4>Delete match</h4>
+      <p class="muted">Only Scheduled or Abandoned matches can be deleted; participations are deleted with it.</p>
+      <button class="danger">Delete match</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

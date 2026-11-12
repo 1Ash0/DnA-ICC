@@ -1,0 +1,19 @@
+{% extends "base.html" %}{% from "_macros.html" import tabs, name with context %}
+{% block title %}Biggest Movers{% endblock %}
+{% block content %}
+<h1>BIGGEST RATING MOVERS</h1>
+{{ tabs('movers', gender, fmt, {'discipline': disc}) }}
+<form class="filters" method="get">
+  <input type="hidden" name="gender" value="{{ gender }}"><input type="hidden" name="format" value="{{ fmt }}">
+  <select name="discipline"><option value="batting" {{ 'selected' if disc=='batting' }}>Batting</option><option value="bowling" {{ 'selected' if disc=='bowling' }}>Bowling</option></select>
+  <label>From <select name="from">{% for d in dates %}<option value="{{ d }}" {{ 'selected' if d|string==d_from }}>{{ d|d }}</option>{% endfor %}</select></label>
+  <label>To <select name="to">{% for d in dates %}<option value="{{ d }}" {{ 'selected' if d|string==d_to }}>{{ d|d }}</option>{% endfor %}</select></label>
+  <button>Apply</button>
+</form>
+<table class="rank">
+  <tr><th>#</th><th>Player</th><th>Team</th><th class="r">Before</th><th class="r">After</th><th class="r">Change</th></tr>
+  {% for r in rows %}<tr><td>{{ loop.index }}</td><td>{{ name(r) }}</td><td>{{ r.team_name or '' }}</td><td class="r">{{ r.before_pts }}</td><td class="r">{{ r.after_pts }}</td>
+    <td class="r big"><span class="{{ 'up' if r.gain>0 else 'down' if r.gain<0 }}">{{ '%+d' % r.gain }}</span></td></tr>
+  {% else %}<tr><td colspan="6">No player is rated on both dates.</td></tr>{% endfor %}
+</table>
+{% endblock %}

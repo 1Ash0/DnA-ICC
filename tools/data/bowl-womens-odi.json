@@ -1,0 +1,711 @@
+{
+  "page": "bowl-womens-odi",
+  "kind": "player",
+  "fetched_at": "2026-11-10T22:47:20",
+  "dates_on_page": [
+    "02 November 2026"
+  ],
+  "row_count": 100,
+  "rows": [
+    [
+      "0=",
+      "SOUTH AFRICA",
+      "Nadine DE KLERK",
+      "431",
+      "509 v India at Colombo (RPS) 2025"
+    ],
+    [
+      "0=",
+      "NETHERLANDS",
+      "Iris ZWILLING",
+      "386",
+      "420 v Scotland at Amstelveen 2024"
+    ],
+    [
+      "0=",
+      "IRELAND",
+      "Georgina DEMPSEY",
+      "332",
+      "357 v Scotland at Spain 2023"
+    ],
+    [
+      "0=",
+      "NEW ZEALAND",
+      "Molly PENFOLD",
+      "298",
+      "320 v Zimbabwe at Dunedin 2026"
+    ],
+    [
+      "0=",
+      "THAILAND",
+      "Phannita MAYA",
+      "294",
+      "294 v Papua New Guinea at Papua New Guinea 2026"
+    ],
+    [
+      "0= 1",
+      "ZIMBABWE",
+      "Loreen TSHUMA",
+      "282",
+      "317 v New Zealand at Dunedin 2026"
+    ],
+    [
+      "0= 1",
+      "INDIA",
+      "Amanjot KAUR",
+      "277",
+      "293 v Australia at Mumbai 2025"
+    ],
+    [
+      "0= 1",
+      "ZIMBABWE",
+      "Lindokuhle MABHERO",
+      "277",
+      "295 v Pakistan at Karachi 2026"
+    ],
+    [
+      "0= 2",
+      "PAKISTAN",
+      "Momina RIASAT",
+      "261",
+      "269 v Zimbabwe at Karachi 2026"
+    ],
+    [
+      "01",
+      "AUS",
+      "Alana KING",
+      "743",
+      "775 v India at Hobart 2026"
+    ],
+    [
+      "02",
+      "ENGLAND",
+      "Sophie ECCLESTONE",
+      "696",
+      "802 v New Zealand at Worcester 2024"
+    ],
+    [
+      "03",
+      "AUSTRALIA",
+      "Ashleigh GARDNER",
+      "692",
+      "740 v England at Melbourne 2025"
+    ],
+    [
+      "04",
+      "AUSTRALIA",
+      "Megan SCHUTT",
+      "673",
+      "766 v West Indies at Antigua 2019"
+    ],
+    [
+      "05",
+      "AUSTRALIA",
+      "Annabel SUTHERLAND",
+      "667",
+      "667 v Bangladesh at Brisbane - AB 2026"
+    ],
+    [
+      "06",
+      "SOUTH AFRICA",
+      "Marizanne KAPP",
+      "650",
+      "749 v West Indies at Antigua 2021"
+    ],
+    [
+      "07",
+      "WEST INDIES",
+      "Hayley MATTHEWS",
+      "639",
+      "671 v Australia at St Kitts (WP) 2026"
+    ],
+    [
+      "08",
+      "INDIA",
+      "Deepti SHARMA",
+      "638",
+      "704 v New Zealand at Ahmedabad 2024"
+    ],
+    [
+      "09",
+      "AUSTRALIA",
+      "Kim GARTH",
+      "619",
+      "672 v Pakistan at Colombo (RPS) 2025"
+    ],
+    [
+      "10",
+      "PAKISTAN",
+      "Nashra SUNDHU",
+      "601",
+      "632 v England at Colombo (RPS) 2025"
+    ],
+    [
+      "11",
+      "ENGLAND",
+      "Charlie DEAN",
+      "599",
+      "628 v Bangladesh at Guwahati 2025"
+    ],
+    [
+      "12",
+      "SOUTH AFRICA",
+      "Ayabonga KHAKA",
+      "595",
+      "680 v New Zealand at Hamilton 2022"
+    ],
+    [
+      "13",
+      "NEW ZEALAND",
+      "Jess KERR",
+      "587",
+      "614 v Bangladesh at Guwahati 2025"
+    ],
+    [
+      "14",
+      "NEW ZEALAND",
+      "Amelia KERR",
+      "578",
+      "620 v England at Dunedin 2021"
+    ],
+    [
+      "15",
+      "SOUTH AFRICA",
+      "Nonkululeko MLABA",
+      "574",
+      "633 v Pakistan at Colombo (RPS) 2025"
+    ],
+    [
+      "16",
+      "WEST INDIES",
+      "Afy FLETCHER",
+      "556",
+      "556 v Zimbabwe at Harare 2026"
+    ],
+    [
+      "17",
+      "BANGLADESH",
+      "Nahida AKTER",
+      "555",
+      "633 v Pakistan at Colombo (RPS) 2025"
+    ],
+    [
+      "18",
+      "PAKISTAN",
+      "Sadia IQBAL",
+      "549",
+      "592 v England at Colombo (RPS) 2025"
+    ],
+    [
+      "19",
+      "ENGLAND",
+      "Lauren BELL",
+      "545",
+      "562 v New Zealand at Cardiff 2026"
+    ],
+    [
+      "20",
+      "SRI LANKA",
+      "Inoka RANAWEERA",
+      "540",
+      "561 v Bangladesh at Colombo (SSC) 2023"
+    ],
+    [
+      "21",
+      "INDIA",
+      "Sree CHARANI",
+      "530",
+      "539 v Australia at Brisbane - AB 2026"
+    ],
+    [
+      "22",
+      "INDIA",
+      "Renuka SINGH",
+      "526",
+      "558 v South Africa at Mumbai 2025"
+    ],
+    [
+      "23",
+      "PAKISTAN",
+      "Fatima SANA",
+      "515",
+      "525 v England at Colombo (RPS) 2025"
+    ],
+    [
+      "24 1",
+      "INDIA",
+      "Kranti GAUD",
+      "505",
+      "505 v Zimbabwe at Vadodara 2026"
+    ],
+    [
+      "25 1",
+      "WEST INDIES",
+      "Karishma RAMHARACK",
+      "496",
+      "521 v Australia at St Kitts (WP) 2026"
+    ],
+    [
+      "26",
+      "BANGLADESH",
+      "Rabeya KHAN",
+      "488",
+      "557 v South Africa at Visakhapatnam 2025"
+    ],
+    [
+      "27",
+      "INDIA",
+      "Sneh RANA",
+      "476",
+      "558 v Sri Lanka at Guwahati 2025"
+    ],
+    [
+      "28",
+      "SRI LANKA",
+      "Chamari ATHAPATHTHU",
+      "460",
+      "464 v India at Colombo (RPS) 2025"
+    ],
+    [
+      "29",
+      "AUSTRALIA",
+      "Georgia WAREHAM",
+      "459",
+      "565 v South Africa at Adelaide 2024"
+    ],
+    [
+      "30",
+      "SRI LANKA",
+      "Kavisha DILHARI",
+      "452",
+      "452 v Pakistan at Hambantota 2026"
+    ],
+    [
+      "31",
+      "NEW ZEALAND",
+      "Rosemary MAIR",
+      "444",
+      "444 v England at Cardiff 2026"
+    ],
+    [
+      "32",
+      "THAILAND",
+      "Thipatcha PUTTHAWONG",
+      "439",
+      "439 v Papua New Guinea at Papua New Guinea 2026"
+    ],
+    [
+      "33",
+      "IRELAND",
+      "Orla PRENDERGAST",
+      "435",
+      "453 v West Indies at Bready 2026"
+    ],
+    [
+      "34",
+      "BANGLADESH",
+      "Fahima KHATUN",
+      "431",
+      "480 v South Africa at Visakhapatnam 2025"
+    ],
+    [
+      "36",
+      "NEW ZEALAND",
+      "Bree ILLING",
+      "430",
+      "430 v England at Cardiff 2026"
+    ],
+    [
+      "37",
+      "ENGLAND",
+      "Lauren FILER",
+      "426",
+      "426 v Ireland at Worcester 2026"
+    ],
+    [
+      "38",
+      "ENGLAND",
+      "Linsey SMITH",
+      "425",
+      "451 v South Africa at Guwahati 2025"
+    ],
+    [
+      "39",
+      "SOUTH AFRICA",
+      "Chloe TRYON",
+      "417",
+      "471 v Bangladesh at Visakhapatnam 2025"
+    ],
+    [
+      "40",
+      "SOUTH AFRICA",
+      "Masabata KLAAS",
+      "415",
+      "462 v Australia at Indore 2025"
+    ],
+    [
+      "41",
+      "SCOTLAND",
+      "Abtaha MAQSOOD",
+      "411",
+      "411 v Netherlands at Stirling 2026"
+    ],
+    [
+      "42",
+      "AUSTRALIA",
+      "Darcie BROWN",
+      "405",
+      "467 v India at New Chandigarh 2025"
+    ],
+    [
+      "43",
+      "PAKISTAN",
+      "Rameen SHAMIM",
+      "404",
+      "416 v Zimbabwe at Karachi 2026"
+    ],
+    [
+      "44",
+      "SRI LANKA",
+      "Sugandika KUMARI",
+      "401",
+      "432 v India at Colombo (RPS) 2025"
+    ],
+    [
+      "45",
+      "SRI LANKA",
+      "Udeshika PRABODHANI",
+      "398",
+      "482 v Ireland at Belfast 2024"
+    ],
+    [
+      "46",
+      "IRELAND",
+      "Cara MURRAY",
+      "394",
+      "394 v England at Worcester 2026"
+    ],
+    [
+      "47",
+      "WEST INDIES",
+      "Aaliyah ALLEYNE",
+      "390",
+      "390 v Zimbabwe at Harare 2026"
+    ],
+    [
+      "48",
+      "BANGLADESH",
+      "Marufa AKTER",
+      "389",
+      "425 v England at Guwahati 2025"
+    ],
+    [
+      "49",
+      "BANGLADESH",
+      "Sultana KHATUN",
+      "387",
+      "429 v Ireland at Dhaka 2024"
+    ],
+    [
+      "50",
+      "PAPUA NEW GUINEA",
+      "Henao THOMAS",
+      "386",
+      "386 v Thailand at Papua New Guinea 2026"
+    ],
+    [
+      "52",
+      "NEW ZEALAND",
+      "Sophie DEVINE",
+      "382",
+      "563 v India at Sydney 2009"
+    ],
+    [
+      "53",
+      "PAKISTAN",
+      "Diana BAIG",
+      "379",
+      "495 v Australia at Sydney 2023"
+    ],
+    [
+      "54",
+      "THAILAND",
+      "Onnicha KAMCHOMPHU",
+      "378",
+      "378 v Papua New Guinea at Papua New Guinea 2026"
+    ],
+    [
+      "55",
+      "PAKISTAN",
+      "Umm-E-Hani",
+      "375",
+      "381 v England at Chelmsford 2024"
+    ],
+    [
+      "56",
+      "AUSTRALIA",
+      "Sophie MOLINEUX",
+      "374",
+      "427 v India at Brisbane - AB 2026"
+    ],
+    [
+      "57",
+      "IRELAND",
+      "Jane MAGUIRE",
+      "372",
+      "411 v South Africa at Gqeberha 2025"
+    ],
+    [
+      "58",
+      "ENGLAND",
+      "Nat SCIVER-BRUNT",
+      "370",
+      "580 v New Zealand at Canterbury 2021"
+    ],
+    [
+      "59",
+      "SCOTLAND",
+      "Katherine FRASER",
+      "367",
+      "367 v Netherlands at Stirling 2026"
+    ],
+    [
+      "60 2",
+      "ZIMBABWE",
+      "Nomvelo SIBANDA",
+      "363",
+      "382 v New Zealand at Dunedin 2026"
+    ],
+    [
+      "61 1",
+      "NEW ZEALAND",
+      "Eden CARSON",
+      "360",
+      "416 v Pakistan at Colombo (RPS) 2025"
+    ],
+    [
+      "62 1",
+      "SOUTH AFRICA",
+      "Tumi SEKHUKHUNE",
+      "357",
+      "400 v West Indies at Antigua 2021"
+    ],
+    [
+      "63 1",
+      "IRELAND",
+      "Ava CANNING",
+      "356",
+      "389 v Zimbabwe at Belfast 2025"
+    ],
+    [
+      "64",
+      "SRI LANKA",
+      "Dewmi VIHANGA",
+      "347",
+      "347 v Pakistan at Hambantota 2026"
+    ],
+    [
+      "65",
+      "NETHERLANDS",
+      "Caroline DE LANGE",
+      "338",
+      "342 v Scotland at Glasgow 2026"
+    ],
+    [
+      "66",
+      "SRI LANKA",
+      "Achini KULASURIYA",
+      "336",
+      "408 v Ireland at Belfast 2024"
+    ],
+    [
+      "67",
+      "PAKISTAN",
+      "Syeda AROOB SHAH",
+      "335",
+      "344 v Sri Lanka at Hambantota 2026"
+    ],
+    [
+      "68",
+      "SOUTH AFRICA",
+      "Sune LUUS",
+      "332",
+      "522 v England at Bristol 2017"
+    ],
+    [
+      "70",
+      "WEST INDIES",
+      "Ashmini MUNISAR",
+      "325",
+      "325 v Zimbabwe at Harare 2026"
+    ],
+    [
+      "71",
+      "SRI LANKA",
+      "Malki MADARA",
+      "317",
+      "329 v Bangladesh at Rajshahi 2026"
+    ],
+    [
+      "72",
+      "PAPUA NEW GUINEA",
+      "Sibona JIMMY",
+      "314",
+      "332 v Scotland at Amstelveen 2024"
+    ],
+    [
+      "73",
+      "UNITED ARAB EMIRATES",
+      "Esha OZA",
+      "311",
+      "311 v Papua New Guinea at Papua New Guinea 2025"
+    ],
+    [
+      "74",
+      "UNITED ARAB EMIRATES",
+      "Suraksha KOTTE",
+      "309",
+      "309 v Papua New Guinea at Papua New Guinea 2025"
+    ],
+    [
+      "75",
+      "PAPUA NEW GUINEA",
+      "Pauke SIAKA",
+      "308",
+      "313 v Thailand at Papua New Guinea 2026"
+    ],
+    [
+      "76",
+      "PAPUA NEW GUINEA",
+      "Isabel TOUA",
+      "303",
+      "318 v United Arab Emirates at Papua New Guinea 2025"
+    ],
+    [
+      "77",
+      "SCOTLAND",
+      "Darcey CARTER",
+      "301",
+      "301 v Netherlands at Stirling 2026"
+    ],
+    [
+      "78",
+      "IRELAND",
+      "Aimee MAGUIRE",
+      "300",
+      "309 v West Indies at Bready 2026"
+    ],
+    [
+      "79",
+      "IRELAND",
+      "Laura DELANY",
+      "298",
+      "397 v Zimbabwe at Harare 2024"
+    ],
+    [
+      "81",
+      "WEST INDIES",
+      "Deandra DOTTIN",
+      "294",
+      "422 v Pakistan at Dubai 2019"
+    ],
+    [
+      "83",
+      "NEW ZEALAND",
+      "Nensi PATEL",
+      "291",
+      "291 v England at Cardiff 2026"
+    ],
+    [
+      "84",
+      "THAILAND",
+      "Suleeporn LAOMI",
+      "288",
+      "292 v Zimbabwe at Bangkok 2023"
+    ],
+    [
+      "85 18",
+      "INDIA",
+      "Sayali SATGHARE",
+      "284",
+      "284 v Zimbabwe at Vadodara 2026"
+    ],
+    [
+      "86",
+      "AUSTRALIA",
+      "Nicola CAREY",
+      "282",
+      "407 v India at Mackay 2021"
+    ],
+    [
+      "88 1",
+      "ZIMBABWE",
+      "Precious MARANGE",
+      "277",
+      "300 v Pakistan at Karachi 2026"
+    ],
+    [
+      "91",
+      "AUSTRALIA",
+      "Tahlia MCGRATH",
+      "272",
+      "346 v England at Hamilton 2022"
+    ],
+    [
+      "92",
+      "BANGLADESH",
+      "Ritu MONI",
+      "270",
+      "278 v Sri Lanka at Colombo (SSC) 2023"
+    ],
+    [
+      "93",
+      "UNITED ARAB EMIRATES",
+      "Michelle BOTHA",
+      "269",
+      "272 v Papua New Guinea at Papua New Guinea 2025"
+    ],
+    [
+      "94 53",
+      "INDIA",
+      "Vaishnavi SHARMA",
+      "267",
+      "267 v Zimbabwe at Vadodara 2026"
+    ],
+    [
+      "95 6",
+      "ZIMBABWE",
+      "Josephine NKOMO",
+      "265",
+      "422 v USA at Harare 2024"
+    ],
+    [
+      "96 2",
+      "INDIA",
+      "Radha YADAV",
+      "264",
+      "301 v New Zealand at Ahmedabad 2024"
+    ],
+    [
+      "97 3",
+      "ZIMBABWE",
+      "Audrey MAZVISHAYA",
+      "263",
+      "312 v USA at Harare 2024"
+    ],
+    [
+      "98 2",
+      "UNITED ARAB EMIRATES",
+      "Samaira DHARNIDHARKA",
+      "262",
+      "262 v Papua New Guinea at Papua New Guinea 2025"
+    ],
+    [
+      "99 2",
+      "SRI LANKA",
+      "Nimasha MEEPAGE",
+      "261",
+      "274 v Bangladesh at Rajshahi 2026"
+    ]
+  ]
+}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Teams{% endblock %}
+{% block content %}
+<h1>TEAMS</h1>
+<div class="grid2">
+{% for g in ['M','W'] %}
+<section class="card"><h3>{{ GENDER_LABEL[g] }} teams</h3>
+<table class="rank small"><tr><th>Team</th><th>Code</th><th>Current status</th></tr>
+{% for t in teams if t.gender==g %}<tr><td><a href="{{ url_for('team_page', tid=t.team_id) }}">{{ t.team_name }}</a></td><td>{{ t.team_code }}</td><td>{{ t.current_status or '' }}</td></tr>{% endfor %}
+</table></section>
+{% endfor %}
+</div>
+{% endblock %}

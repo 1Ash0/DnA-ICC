@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Admin{% endblock %}
+{% block content %}
+<h1>RANKINGS ADMIN</h1>
+<section class="card admin-box"><h3>Data entry</h3>
+<div class="forms">
+  <form method="post" action="{{ url_for('player_new') }}">
+    <h4>Add a player</h4>
+    <input type="number" name="player_id" placeholder="ICC player id" required>
+    <input name="first_name" placeholder="First name" required maxlength="50">
+    <input name="middle_name" placeholder="Middle name" maxlength="50">
+    <input name="last_name" placeholder="Last name" required maxlength="60">
+    <label>DOB <input type="date" name="date_of_birth"></label>
+    <select name="gender"><option value="M">Male</option><option value="W">Female</option></select>
+    <input name="batting_style" placeholder="Batting style" maxlength="30">
+    <input name="bowling_style" placeholder="Bowling style" maxlength="50">
+    <select name="playing_role">{% for r in ['Batter','Bowler','All-rounder','Wicket-keeper'] %}<option>{{ r }}</option>{% endfor %}</select>
+    <select name="team_id">{% for t in teams %}<option value="{{ t.team_id }}">{{ t.team_name }}</option>{% endfor %}</select>
+    <label>Represents from <input type="date" name="from_date" value="{{ today }}" required></label>
+    <button>Add player</button>
+    <p class="muted">Player, role and team spell are inserted in one transaction; a gender mismatch with the team is rejected.</p>
+  </form>
+  <form method="post" action="{{ url_for('player_rating_new') }}">
+    <h4>Publish a player rating</h4>
+    <select name="player_id">{% for p in players %}<option value="{{ p.player_id }}">{{ p.last_name }}, {{ p.first_name }} ({{ p.team_name or '-' }})</option>{% endfor %}</select>
+    <select name="format_code">{% for f in ['TEST','ODI','T20I'] %}<option>{{ f }}</option>{% endfor %}</select>
+    <select name="discipline"><option>Batting</option><option>Bowling</option></select>
+    <input type="date" name="as_of_date" value="{{ today }}" required>
+    <input type="number" name="rating_points" placeholder="0-1000" required>
+    <select name="published_by">{% for u in users %}<option value="{{ u.user_id }}">{{ u.username }}</option>{% endfor %}</select>
+    <button>Publish</button>
+    <p class="muted">Rejected if outside 0&ndash;1000, a women's Test rating, or a duplicate.</p>
+  </form>
+  <form method="post" action="{{ url_for('team_rating_new') }}">
+    <h4>Publish a team rating</h4>
+    <select name="team_id">{% for t in teams %}<option value="{{ t.team_id }}">{{ t.team_name }}</option>{% endfor %}</select>
+    <select name="format_code">{% for f in ['TEST','ODI','T20I'] %}<option>{{ f }}</option>{% endfor %}</select>
+    <input type="date" name="as_of_date" value="{{ today }}" required>
+    <input type="number" name="matches" placeholder="matches" required>
+    <input type="number" name="points" placeholder="points" required>
+    <select name="update_trigger"><option>Weekly</option><option>Annual</option><option>Match result</option><option>Status change</option></select>
+    <select name="published_by">{% for u in users %}<option value="{{ u.user_id }}">{{ u.username }}</option>{% endfor %}</select>
+    <button>Publish</button>
+    <p class="muted">Rejected if matches is 0, the team lacks that format status, or it is a women's Test row.</p>
+  </form>
+</div></section>
+
+<div class="grid2">
+<section class="card"><h3>Users</h3>
+<table class="rank small"><tr><th>User</th><th>Role</th><th>Supervisor</th><th>Email</th></tr>
+{% for u in users %}<tr><td>{{ u.username }}</td><td>{{ u.role }}</td><td>{{ u.supervisor or '-' }}</td><td>{{ u.email }}</td></tr>{% endfor %}</table></section>
+<section class="card"><h3>Analyst workload (snapshot rows published per month)</h3>
+<table class="rank small"><tr><th>Supervisor</th><th>User</th><th>Month</th><th class="r">Rows</th></tr>
+{% for w in workload %}<tr><td>{{ w.supervisor }}</td><td>{{ w.username }}</td><td>{{ w.month }}</td><td class="r">{{ w.snapshots }}</td></tr>
+{% else %}<tr><td colspan="4">Nothing published.</td></tr>{% endfor %}</table></section>
+</div>
+{% endblock %}

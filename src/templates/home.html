@@ -1,0 +1,27 @@
+{% extends "base.html" %}{% from "_macros.html" import move, name with context %}
+{% block title %}ICC World Rankings{% endblock %}
+{% block content %}
+<h1 class="hero">ICC WORLD RANKINGS</h1>
+<p class="muted">Official team and player rankings for Test, ODI and T20I cricket, men and women. Pick a table below, or search above.</p>
+<div class="grid">
+  {% for g, f, rows in tops %}
+  <section class="card">
+    <h3>{{ GENDER_LABEL[g] }} {{ FORMAT_LABEL[f] }} Team Rankings</h3>
+    <table class="rank small">
+      <tr><th>Pos</th><th>Team</th><th>Rating</th></tr>
+      {% for r in rows %}<tr><td>{{ '%02d' % r.rank_position }}</td><td><a href="{{ url_for('team_page', tid=r.team_id) }}">{{ r.team_name }}</a></td><td><b>{{ r.rating }}</b></td></tr>
+      {% else %}<tr><td colspan="3">No ratings published.</td></tr>{% endfor %}
+    </table>
+    <a class="more" href="{{ url_for('team_rankings', gender=g, format=f) }}">Full table &rarr;</a>
+  </section>
+  {% endfor %}
+  <section class="card">
+    <h3>Men's ODI Batting Rankings</h3>
+    <table class="rank small">
+      <tr><th>Pos</th><th>Player</th><th>Rating</th></tr>
+      {% for r in bats %}<tr><td>{{ '%02d' % r.rank_position }}</td><td>{{ name(r) }} <span class="muted">{{ r.short_code or '' }}</span></td><td><b>{{ r.rating_points }}</b></td></tr>{% endfor %}
+    </table>
+    <a class="more" href="{{ url_for('player_rankings') }}">Full table &rarr;</a>
+  </section>
+</div>
+{% endblock %}

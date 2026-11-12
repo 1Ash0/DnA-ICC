@@ -64,3 +64,6 @@ npm-debug.log*
 # ---------- Submission artifacts ----------
 *.zip
 *.mp4
+
+# Fetched raw pages
+tools/data/raw/

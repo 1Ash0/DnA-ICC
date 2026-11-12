@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Player Comparison{% endblock %}
+{% block content %}
+<h1>PLAYER COMPARISON</h1>
+<form class="filters" method="get">
+  <select name="p1">{% for p in players %}<option value="{{ p.player_id }}" {{ 'selected' if p.player_id==p1 }}>{{ p.last_name }}, {{ p.first_name }} ({{ p.team_name or '-' }})</option>{% endfor %}</select>
+  v
+  <select name="p2">{% for p in players %}<option value="{{ p.player_id }}" {{ 'selected' if p.player_id==p2 }}>{{ p.last_name }}, {{ p.first_name }} ({{ p.team_name or '-' }})</option>{% endfor %}</select>
+  <button>Compare</button>
+</form>
+{% if data %}{% set a, b = data.a, data.b %}
+<section class="card">
+<table class="rank compare">
+  <tr><th></th><th><a href="{{ url_for('player_page', pid=a.player_id) }}">{{ a.first_name }} {{ a.last_name|upper }}</a></th><th><a href="{{ url_for('player_page', pid=b.player_id) }}">{{ b.first_name }} {{ b.last_name|upper }}</a></th></tr>
+  <tr><td>Team</td><td>{{ a.team_name or '-' }}</td><td>{{ b.team_name or '-' }}</td></tr>
+  <tr><td>Age</td><td>{{ a.age or '-' }}</td><td>{{ b.age or '-' }}</td></tr>
+  <tr><td>Batting / bowling</td><td>{{ a.batting_style or '-' }} / {{ a.bowling_style or '-' }}</td><td>{{ b.batting_style or '-' }} / {{ b.bowling_style or '-' }}</td></tr>
+  {% for f, d in data.cells %}
+  {% set x = data.grid.get((a.player_id, f, d)) %}{% set y = data.grid.get((b.player_id, f, d)) %}
+  <tr><td>{{ FORMAT_LABEL[f] }} {{ d }} rating</td>
+    <td class="{{ 'win' if x and (not y or x.rating_points > y.rating_points) }}">{{ x.rating_points if x else '-' }}</td>
+    <td class="{{ 'win' if y and (not x or y.rating_points > x.rating_points) }}">{{ y.rating_points if y else '-' }}</td></tr>
+  {% endfor %}
+  {% for f in ['TEST','ODI','T20I'] %}{% if data.ca.get(f) or data.cb.get(f) %}
+  <tr><td>{{ FORMAT_LABEL[f] }} runs / wickets (recorded)</td>
+    <td>{{ data.ca[f].runs if data.ca.get(f) else '-' }} / {{ data.ca[f].wickets if data.ca.get(f) else '-' }}</td>
+    <td>{{ data.cb[f].runs if data.cb.get(f) else '-' }} / {{ data.cb[f].wickets if data.cb.get(f) else '-' }}</td></tr>
+  {% endif %}{% endfor %}
+</table>
+</section>
+{% endif %}
+{% endblock %}

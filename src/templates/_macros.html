@@ -1,0 +1,16 @@
+{% macro move(m) -%}
+  {%- if m is none -%}<span class="mv new">&bull;</span>
+  {%- elif m > 0 -%}<span class="mv up">&#9650;{{ m }}</span>
+  {%- elif m < 0 -%}<span class="mv down">&#9660;{{ -m }}</span>
+  {%- else -%}<span class="mv same">&ndash;</span>{%- endif -%}
+{%- endmacro %}
+
+{% macro tabs(endpoint, gender, fmt, extra={}) -%}
+<div class="tabs">
+  {% for g in ['M','W'] %}<a class="{{ 'on' if g==gender }}" href="{{ url_for(endpoint, gender=g, format=('ODI' if g=='W' and fmt=='TEST' else fmt), **extra) }}">{{ GENDER_LABEL[g] }}</a>{% endfor %}
+  <span class="sep"></span>
+  {% for f in ['TEST','ODI','T20I'] %}{% if not (gender=='W' and f=='TEST') %}<a class="{{ 'on' if f==fmt }}" href="{{ url_for(endpoint, gender=gender, format=f, **extra) }}">{{ FORMAT_LABEL[f] }}</a>{% endif %}{% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro name(p) -%}<a href="{{ url_for('player_page', pid=p.player_id) }}">{{ p.first_name }} <b>{{ p.last_name|upper }}</b></a>{%- endmacro %}

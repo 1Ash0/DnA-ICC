@@ -1,0 +1,84 @@
+{% extends "base.html" %}{% from "_macros.html" import name with context %}
+{% block title %}{{ t.team_name }}{% endblock %}
+{% block content %}
+<section class="profile">
+  <div>
+    <div class="fname">{{ t.member_name }} &middot; {{ t.membership_type }} Member</div>
+    <h1 class="lname">{{ t.team_name|upper }}</h1>
+    <span class="pill">{{ t.team_code }}</span> <span class="muted">{{ t.region }}{% if t.joined_year %} &middot; ICC member since {{ t.joined_year }}{% endif %}</span>
+  </div>
+  <dl class="facts">
+    {% for s in status %}<dt>{{ FORMAT_LABEL[s.format_code] }} status</dt><dd>{{ s.status_since|d }} &ndash; {{ s.status_end_date|d if s.status_end_date else 'current' }}</dd>{% endfor %}
+  </dl>
+</section>
+
+<div class="grid2">
+<section class="card">
+  <h3>Win / loss record (matches in database)</h3>
+  <table class="rank small"><tr><th>Format</th><th class="r">P</th><th class="r">W</th><th class="r">L</th><th class="r">D</th><th class="r">T</th><th class="r">NR</th></tr>
+  {% for r in record %}<tr><td>{{ FORMAT_LABEL[r.format_code] }}</td><td class="r">{{ r.played }}</td><td class="r">{{ r.won }}</td><td class="r">{{ r.lost }}</td><td class="r">{{ r.drawn }}</td><td class="r">{{ r.tied }}</td><td class="r">{{ r.no_result }}</td></tr>
+  {% else %}<tr><td colspan="7">No completed matches recorded.</td></tr>{% endfor %}</table>
+</section>
+<section class="card">
+  <h3>Top performers</h3>
+  <table class="rank small"><tr><th>Player</th><th class="r">M</th><th class="r">Runs</th><th class="r">Wkts</th></tr>
+  {% for r in top %}<tr><td>{{ name(r) }}</td><td class="r">{{ r.matches }}</td><td class="r">{{ r.runs }}</td><td class="r">{{ r.wickets }}</td></tr>
+  {% else %}<tr><td colspan="4">No appearances recorded.</td></tr>{% endfor %}</table>
+</section>
+</div>
+
+<section class="card">
+  <h3>Rating trend</h3>
+  <table class="rank small"><tr><th>Format</th><th>Date</th><th class="r">Matches</th><th class="r">Points</th><th class="r">Rating</th><th class="r">Change</th><th>Published by</th><th></th></tr>
+  {% for r in trend %}<tr><td>{{ FORMAT_LABEL[r.format_code] }}</td><td>{{ r.as_of_date|d }}</td><td class="r">{{ r.matches }}</td><td class="r">{{ r.points }}</td><td class="r"><b>{{ r.rating }}</b></td>
+    <td class="r">{% if r.change_pts is not none %}<span class="{{ 'up' if r.change_pts>0 else 'down' if r.change_pts<0 }}">{{ '%+d' % r.change_pts }}</span>{% endif %}</td>
+    <td>{{ r.published_by }}{% if r.needs_recompute %} <span class="badge warn">needs recompute</span>{% endif %}</td>
+    <td class="actions">
+      <details><summary>edit</summary>
+        <form method="post" action="{{ url_for('team_rating_edit', tid=t.team_id) }}">
+          <input type="hidden" name="format_code" value="{{ r.format_code }}"><input type="hidden" name="as_of_date" value="{{ r.as_of_date }}">
+          <input type="number" name="matches" value="{{ r.matches }}" style="width:5em"> <input type="number" name="points" value="{{ r.points }}" style="width:6em"> <button>Save</button>
+        </form></details>
+      <form method="post" action="{{ url_for('team_rating_delete', tid=t.team_id) }}" onsubmit="return confirm('Delete this snapshot?')">
+        <input type="hidden" name="format_code" value="{{ r.format_code }}"><input type="hidden" name="as_of_date" value="{{ r.as_of_date }}"><button class="danger small">delete</button></form>
+    </td></tr>
+  {% else %}<tr><td colspan="8">No rating snapshots.</td></tr>{% endfor %}</table>
+</section>
+
+<section class="card">
+  <h3>Matches</h3>
+  <table class="rank small"><tr><th>Date</th><th>Format</th><th>Opponent</th><th>Venue</th><th>Status</th><th>Result</th></tr>
+  {% for m in matches %}<tr><td><a href="{{ url_for('match_page', mid=m.match_id) }}">{{ m.match_date|d }}</a></td><td>{{ m.format_code }}</td><td>v {{ m.opponent }}</td><td>{{ m.ground }}, {{ m.city }}</td><td>{{ m.status }}</td><td>{{ m.result or '' }}</td></tr>
+  {% else %}<tr><td colspan="6">No matches recorded.</td></tr>{% endfor %}</table>
+</section>
+
+<section class="card">
+  <h3>Current squad (players represented)</h3>
+  <table class="rank small"><tr><th>Player</th><th>Role</th><th>Batting</th><th>Bowling</th></tr>
+  {% for p in squad %}<tr><td>{{ name(p) }}</td><td>{{ p.roles or '' }}</td><td>{{ p.batting_style or '' }}</td><td>{{ p.bowling_style or '' }}</td></tr>
+  {% else %}<tr><td colspan="4">No players.</td></tr>{% endfor %}</table>
+</section>
+
+<section class="card admin-box">
+  <h3>Admin actions</h3>
+  <div class="forms">
+    <form method="post" action="{{ url_for('team_rating_new') }}">
+      <h4>Publish rating snapshot</h4>
+      <input type="hidden" name="team_id" value="{{ t.team_id }}">
+      <select name="format_code">{% for f in ['TEST','ODI','T20I'] %}<option>{{ f }}</option>{% endfor %}</select>
+      <input type="date" name="as_of_date" value="{{ today }}" required>
+      <input type="number" name="matches" placeholder="matches" required style="width:6em">
+      <input type="number" name="points" placeholder="points" required style="width:6em">
+      <select name="update_trigger"><option>Weekly</option><option>Annual</option><option>Match result</option><option>Status change</option></select>
+      <select name="published_by"><option value="1">rk.admin</option><option value="2">men.analyst</option><option value="3">women.analyst</option></select>
+      <button>Publish</button>
+    </form>
+    <form method="post" action="{{ url_for('team_status_end', tid=t.team_id) }}">
+      <h4>End a format status</h4>
+      <select name="format_code">{% for s in status if not s.status_end_date %}<option>{{ s.format_code }}</option>{% endfor %}</select>
+      <input type="date" name="end_date" value="{{ today }}" required>
+      <button>End status</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

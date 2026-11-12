@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}{{ p.first_name }} {{ p.last_name }}{% endblock %}
+{% block content %}
+<section class="profile">
+  <div>
+    <div class="fname">{{ p.first_name }}{% if p.middle_name %} {{ p.middle_name }}{% endif %}</div>
+    <h1 class="lname">{{ p.last_name|upper }}</h1>
+    {% if p.team_id %}<a class="pill" href="{{ url_for('team_page', tid=p.team_id) }}">{{ p.short_code }} &middot; {{ p.team_name }}</a>{% endif %}
+  </div>
+  <dl class="facts">
+    <dt>Role</dt><dd>{{ roles|join(', ') or '-' }}</dd>
+    <dt>Player age</dt><dd>{{ p.age if p.age is not none else '-' }}{% if p.date_of_birth %} <span class="muted">(born {{ p.date_of_birth|d }})</span>{% endif %}</dd>
+    <dt>Batting style</dt><dd>{{ p.batting_style or '-' }}</dd>
+    <dt>Bowling style</dt><dd>{{ p.bowling_style or '-' }}</dd>
+    <dt>Gender</dt><dd>{{ 'Male' if p.gender=='M' else 'Female' }}</dd>
+    <dt>Retired from</dt><dd>{% for r in retired %}{{ r.format_code }} ({{ r.retired_on|d }}){{ ', ' if not loop.last }}{% else %}-{% endfor %}</dd>
+  </dl>
+</section>
+
+<div class="grid2">
+<section class="card">
+  <h3>ICC Rankings (current)</h3>
+  <table class="rank small"><tr><th>Format</th><th>Discipline</th><th class="r">Rating</th><th class="r">Rank</th><th>Date</th></tr>
+  {% for r in ranks %}<tr><td>{{ FORMAT_LABEL[r.format_code] }}</td><td>{{ r.discipline }}</td><td class="r"><b>{{ r.rating_points }}</b></td><td class="r">{{ r.rank_position }}</td><td>{{ r.as_of_date|d }}</td></tr>
+  {% else %}<tr><td colspan="5">Not in any current table.</td></tr>{% endfor %}</table>
+</section>
+<section class="card">
+  <h3>Career figures (from appearances)</h3>
+  <table class="rank small"><tr><th>Format</th><th class="r">M</th><th class="r">Runs</th><th class="r">HS</th><th class="r">SR</th><th class="r">Wkts</th><th class="r">Econ</th></tr>
+  {% for c in career %}<tr><td>{{ FORMAT_LABEL[c.format_code] }}</td><td class="r">{{ c.matches }}</td><td class="r">{{ c.runs }}</td><td class="r">{{ c.best_score }}</td><td class="r">{{ c.strike_rate or '-' }}</td><td class="r">{{ c.wickets }}</td><td class="r">{{ c.economy or '-' }}</td></tr>
+  {% else %}<tr><td colspan="7">No appearances recorded in the database.</td></tr>{% endfor %}</table>
+</section>
+</div>
+
+<section class="card">
+  <h3>Rating history</h3>
+  <table class="rank small"><tr><th>Format</th><th>Discipline</th><th>Date</th><th class="r">Rating</th><th class="r">Change</th></tr>
+  {% for r in rating_history %}<tr><td>{{ FORMAT_LABEL[r.format_code] }}</td><td>{{ r.discipline }}</td><td>{{ r.as_of_date|d }}</td><td class="r">{{ r.rating_points }}</td>
+    <td class="r">{% if r.change_pts is not none %}<span class="{{ 'up' if r.change_pts>0 else 'down' if r.change_pts<0 }}">{{ '%+d' % r.change_pts }}</span>{% endif %}</td></tr>
+  {% else %}<tr><td colspan="5">No ratings.</td></tr>{% endfor %}</table>
+</section>
+
+<section class="card">
+  <h3>Recent matches</h3>
+  <table class="rank small"><tr><th>Date</th><th>Format</th><th>Opponent</th><th>Series</th><th class="r">Bat</th><th class="r">Bowl</th></tr>
+  {% for a in apps %}<tr><td><a href="{{ url_for('match_page', mid=a.match_id) }}">{{ a.match_date|d }}</a></td><td>{{ a.format_code }}</td><td>v {{ a.opponent }}</td><td>{{ a.series_name }}</td>
+    <td class="r">{% if a.batted %}{{ a.runs_scored }} ({{ a.balls_faced }}){% else %}DNB{% endif %}</td>
+    <td class="r">{% if a.bowled %}{{ a.wickets_taken }}/{{ a.runs_conceded }}{% else %}-{% endif %}</td></tr>
+  {% else %}<tr><td colspan="6">No appearances recorded.</td></tr>{% endfor %}</table>
+</section>
+
+<section class="card">
+  <h3>Teams</h3>
+  <table class="rank small"><tr><th>Team</th><th>From</th><th>To</th></tr>
+  {% for h in history %}<tr><td><a href="{{ url_for('team_page', tid=h.team_id) }}">{{ h.team_name }}</a></td><td>{{ h.from_date|d }}</td><td>{{ h.to_date|d if h.to_date else 'current' }}</td></tr>{% endfor %}</table>
+</section>
+
+<section class="card admin-box">
+  <h3>Admin actions</h3>
+  <div class="forms">
+    <form method="post" action="{{ url_for('player_retire', pid=p.player_id) }}">
+      <h4>Retire from a format</h4>
+      <select name="format_code">{% for f in ['TEST','ODI','T20I'] %}<option>{{ f }}</option>{% endfor %}</select>
+      <input type="date" name="retired_on" value="{{ today }}" required>
+      <button>Retire</button>
+    </form>
+    <form method="post" action="{{ url_for('player_change_team', pid=p.player_id) }}">
+      <h4>Change team</h4>
+      <select name="team_id">{% for t in teams %}<option value="{{ t.team_id }}" {{ 'selected' if t.team_id==p.team_id }}>{{ t.team_name }}</option>{% endfor %}</select>
+      <input type="date" name="from_date" value="{{ today }}" required>
+      <button>Change</button>
+    </form>
+    <form method="post" action="{{ url_for('player_delete', pid=p.player_id) }}" onsubmit="return confirm('Delete this player? Refused if the player has history.')">
+      <h4>Delete player</h4>
+      <p class="muted">Only allowed with no appearances or ratings (RESTRICT).</p>
+      <button class="danger">Delete</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

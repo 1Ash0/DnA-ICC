@@ -1,0 +1,2 @@
+playwright>=1.45   # fetch_rankings.py
+beautifulsoup4>=4.12   # build_populate.py

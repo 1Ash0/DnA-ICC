@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Statistics{% endblock %}
+{% block content %}
+<h1>RANKING STATISTICS</h1>
+<section class="card"><h3>Highest, lowest and average team rating per format and date</h3>
+<table class="rank small"><tr><th>Table</th><th>Date</th><th class="r">Teams</th><th class="r">Highest</th><th class="r">Lowest</th><th class="r">Average</th></tr>
+{% for r in fstats %}<tr><td><a href="{{ url_for('team_rankings', gender=r.gender, format=r.format_code, date=r.as_of_date) }}">{{ GENDER_LABEL[r.gender] }} {{ FORMAT_LABEL[r.format_code] }}</a></td><td>{{ r.as_of_date|d }}</td><td class="r">{{ r.teams }}</td><td class="r">{{ r.highest }}</td><td class="r">{{ r.lowest }}</td><td class="r">{{ r.average }}</td></tr>{% endfor %}
+</table></section>
+
+<section class="card"><h3>Teams with no recorded {{ fmt }} match since {{ since }}</h3>
+<form class="filters" method="get">
+  <select name="format">{% for f in ['TEST','ODI','T20I'] %}<option {{ 'selected' if f==fmt }}>{{ f }}</option>{% endfor %}</select>
+  <input type="date" name="since" value="{{ since }}"> <button>Apply</button>
+</form>
+<table class="rank small"><tr><th>Team</th><th>Gender</th></tr>
+{% for t in idle %}<tr><td><a href="{{ url_for('team_page', tid=t.team_id) }}">{{ t.team_name }}</a></td><td>{{ t.gender }}</td></tr>
+{% else %}<tr><td colspan="2">Every ranked team has played.</td></tr>{% endfor %}</table></section>
+
+<section class="card"><h3>Ranked teams per ICC member, by format</h3>
+<table class="rank small"><tr><th>Member</th><th>Type</th><th>Region</th><th class="r">Test</th><th class="r">ODI</th><th class="r">T20I</th></tr>
+{% for m in members %}<tr><td>{{ m.name }}</td><td>{{ m.membership_type }}</td><td>{{ m.region }}</td><td class="r">{{ m.test_teams }}</td><td class="r">{{ m.odi_teams }}</td><td class="r">{{ m.t20i_teams }}</td></tr>{% endfor %}
+</table></section>
+{% endblock %}

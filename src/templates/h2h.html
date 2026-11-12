@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Head-to-Head{% endblock %}
+{% block content %}
+<h1>HEAD-TO-HEAD</h1>
+<div class="tabs">{% for g in ['M','W'] %}<a class="{{ 'on' if g==gender }}" href="{{ url_for('h2h', gender=g) }}">{{ GENDER_LABEL[g] }}</a>{% endfor %}</div>
+<form class="filters" method="get">
+  <input type="hidden" name="gender" value="{{ gender }}">
+  <select name="team1">{% for t in teams %}<option value="{{ t.team_id }}" {{ 'selected' if t.team_id==t1 }}>{{ t.team_name }}</option>{% endfor %}</select>
+  v
+  <select name="team2">{% for t in teams %}<option value="{{ t.team_id }}" {{ 'selected' if t.team_id==t2 }}>{{ t.team_name }}</option>{% endfor %}</select>
+  <select name="format"><option value="">All formats</option>{% for f in ['TEST','ODI','T20I'] %}<option {{ 'selected' if f==fmt }}>{{ f }}</option>{% endfor %}</select>
+  <button>Compare</button>
+</form>
+{% if summary %}
+<section class="card">
+  <h3>{{ n1.team_name }} v {{ n2.team_name }} {{ fmt }}</h3>
+  <div class="stats">
+    <div><b>{{ summary.played }}</b>Played</div><div><b>{{ summary.t1_won or 0 }}</b>{{ n1.team_name }} won</div>
+    <div><b>{{ summary.t2_won or 0 }}</b>{{ n2.team_name }} won</div><div><b>{{ summary.drawn or 0 }}</b>Drawn</div>
+    <div><b>{{ summary.tied or 0 }}</b>Tied</div><div><b>{{ summary.no_result or 0 }}</b>No result</div>
+  </div>
+  <table class="rank small"><tr><th>Date</th><th>Format</th><th>Score</th><th>{{ n1.team_name }}</th><th>Venue</th></tr>
+  {% for r in rows %}<tr><td><a href="{{ url_for('match_page', mid=r.match_id) }}">{{ r.match_date|d }}</a></td><td>{{ r.format_code }}</td><td>{{ r.t1_runs if r.t1_runs is not none else '-' }} &ndash; {{ r.t2_runs if r.t2_runs is not none else '-' }}</td><td>{{ r.t1_result or '' }}</td><td>{{ r.ground }}, {{ r.city }}</td></tr>
+  {% else %}<tr><td colspan="5">These teams have not met in the recorded matches.</td></tr>{% endfor %}</table>
+</section>
+{% endif %}
+{% endblock %}

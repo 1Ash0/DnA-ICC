@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% from "_macros.html" import move, tabs with context %}
+{% block title %}{{ GENDER_LABEL[gender] }} {{ FORMAT_LABEL[fmt] }} Team Rankings{% endblock %}
+{% block content %}
+<h1>{{ GENDER_LABEL[gender]|upper }} {{ FORMAT_LABEL[fmt]|upper }} TEAM RANKINGS</h1>
+<p class="muted">Rank date - {{ rows[0].table_date|d if rows else 'no table published' }}</p>
+{{ tabs('team_rankings', gender, fmt) }}
+<form class="filters" method="get">
+  <input type="hidden" name="gender" value="{{ gender }}"><input type="hidden" name="format" value="{{ fmt }}">
+  <label>Rank date <select name="date"><option value="">Latest</option>{% for d in dates %}<option value="{{ d }}" {{ 'selected' if d|string==request.args.get('date') }}>{{ d|d }}</option>{% endfor %}</select></label>
+  <button>Apply</button>
+</form>
+<table class="rank">
+  <tr><th>Pos</th><th></th><th>Team</th><th class="r">Matches</th><th class="r">Pts</th><th class="r">Rating</th></tr>
+  {% for r in rows %}
+  <tr class="{{ 'top' if loop.first }}">
+    <td class="pos">{{ '%02d' % r.rank_position }}</td><td>{{ move(r.movement) }}</td>
+    <td><a href="{{ url_for('team_page', tid=r.team_id) }}"><b>{{ r.team_name|upper }}</b></a> <span class="muted">{{ r.short_code }}</span>
+      {% if r.needs_recompute %}<span class="badge warn" title="An input to this rating changed">needs recompute</span>{% endif %}</td>
+    <td class="r">{{ r.matches }}</td><td class="r">{{ '{:,}'.format(r.points) }}</td><td class="r big">{{ r.rating }}</td>
+  </tr>
+  {% else %}<tr><td colspan="6">No rankings published for this table.</td></tr>{% endfor %}
+</table>
+<p class="muted">Rating = points &divide; matches, rounded (computed in SQL). Arrows show movement since the previous snapshot.</p>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Search{% endblock %}
+{% block content %}
+<h1>SEARCH</h1>
+<form class="filters" action="{{ url_for('search') }}" method="get">
+  <input type="text" name="q" value="{{ q }}" placeholder="e.g. koh, india, keeper" maxlength="60" autofocus> <button>Search</button>
+</form>
+{% if q %}
+<div class="grid2">
+<section class="card"><h3>Players ({{ players|length }})</h3>
+<table class="rank small"><tr><th>Player</th><th>Team</th><th>Role</th></tr>
+{% for p in players %}<tr><td><a href="{{ url_for('player_page', pid=p.player_id) }}">{{ p.first_name }} {% if p.middle_name %}{{ p.middle_name }} {% endif %}<b>{{ p.last_name|upper }}</b></a></td>
+<td>{% if p.team_id %}<a href="{{ url_for('team_page', tid=p.team_id) }}">{{ p.team_name }}</a>{% endif %}</td><td>{{ p.roles or '' }}</td></tr>
+{% else %}<tr><td colspan="3">No players found for "{{ q }}".</td></tr>{% endfor %}</table></section>
+<section class="card"><h3>Teams ({{ teams|length }})</h3>
+<table class="rank small"><tr><th>Team</th><th>Code</th><th>Current status</th></tr>
+{% for t in teams %}<tr><td><a href="{{ url_for('team_page', tid=t.team_id) }}">{{ t.team_name }}</a></td><td>{{ t.team_code }}</td><td>{{ t.current_status or 'none' }}</td></tr>
+{% else %}<tr><td colspan="3">No teams found for "{{ q }}".</td></tr>{% endfor %}</table></section>
+</div>
+{% else %}<p class="muted">Type part of a player's name, a team name or code, or a role (e.g. "keeper").</p>{% endif %}
+{% endblock %}

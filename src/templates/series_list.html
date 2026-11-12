@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Series{% endblock %}
+{% block content %}
+<h1>SERIES</h1>
+<table class="rank">
+  <tr><th>Series</th><th>Type</th><th>Dates</th><th>Formats</th><th class="r">Matches</th></tr>
+  {% for s in rows %}<tr><td><a href="{{ url_for('series_page', sid=s.series_id) }}">{{ s.series_name }}</a></td><td>{{ s.series_type }}</td><td>{{ s.start_date|d }} &ndash; {{ s.end_date|d }}</td><td>{{ s.formats or '' }}</td><td class="r">{{ s.n_matches }}</td></tr>
+  {% else %}<tr><td colspan="5">No series.</td></tr>{% endfor %}
+</table>
+{% endblock %}

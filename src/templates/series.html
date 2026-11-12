@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% from "_macros.html" import name with context %}
+{% block title %}{{ s.series_name }}{% endblock %}
+{% block content %}
+<h1>{{ s.series_name|upper }}</h1>
+<p class="muted">{{ s.series_type }} &middot; {{ s.start_date|d }} &ndash; {{ s.end_date|d }}</p>
+<section class="card"><h3>Matches</h3>
+<table class="rank small"><tr><th>#</th><th>Date</th><th>Format</th><th>Match</th><th>Venue</th><th>Status</th></tr>
+{% for m in matches %}<tr><td>{{ m.match_no }}</td><td>{{ m.match_date|d }}</td><td>{{ m.format_code }}</td><td><a href="{{ url_for('match_page', mid=m.match_id) }}">{{ m.teams }}</a></td><td>{{ m.ground }}, {{ m.city }}</td><td><span class="badge {{ m.status|lower }}">{{ m.status }}</span></td></tr>{% endfor %}
+</table></section>
+<div class="grid2">
+<section class="card"><h3>Top performers</h3>
+<table class="rank small"><tr><th>Player</th><th>Team</th><th class="r">M</th><th class="r">Runs</th><th class="r">Wkts</th></tr>
+{% for r in top %}<tr><td>{{ name(r) }}</td><td>{{ r.team_name }}</td><td class="r">{{ r.matches }}</td><td class="r">{{ r.runs }}</td><td class="r">{{ r.wickets }}</td></tr>
+{% else %}<tr><td colspan="5">No completed matches with scorecards.</td></tr>{% endfor %}</table></section>
+<section class="card"><h3>Rating impact (before vs after the series)</h3>
+<table class="rank small"><tr><th>Team</th><th>Format</th><th class="r">Before</th><th class="r">After</th><th class="r">Change</th></tr>
+{% for r in impact %}<tr><td><a href="{{ url_for('team_page', tid=r.team_id) }}">{{ r.team_name }}</a></td><td>{{ r.format_code }}</td><td class="r">{{ r.before_rating if r.before_rating is not none else '-' }}</td><td class="r">{{ r.after_rating if r.after_rating is not none else '-' }}</td>
+<td class="r">{% if r.before_rating is not none and r.after_rating is not none %}{% set c = r.after_rating - r.before_rating %}<span class="{{ 'up' if c>0 else 'down' if c<0 }}">{{ '%+d' % c }}</span>{% else %}-{% endif %}</td></tr>{% endfor %}
+</table><p class="muted">"-" means no snapshot exists on that side of the series yet.</p></section>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Matches{% endblock %}
+{% block content %}
+<h1>MATCHES</h1>
+<form class="filters" method="get">
+  <label>Format <select name="format"><option value="">All</option>{% for f in ['TEST','ODI','T20I'] %}<option {{ 'selected' if f==fmt }}>{{ f }}</option>{% endfor %}</select></label>
+  <label>Status <select name="status"><option value="">All</option>{% for s in ['Completed','Scheduled','Abandoned'] %}<option {{ 'selected' if s==status }}>{{ s }}</option>{% endfor %}</select></label>
+  <label>Gender <select name="gender"><option value="">All</option><option value="M" {{ 'selected' if gender=='M' }}>Men</option><option value="W" {{ 'selected' if gender=='W' }}>Women</option></select></label>
+  <button>Apply</button>
+</form>
+<table class="rank">
+  <tr><th>Date</th><th>Format</th><th>Match</th><th>Series</th><th>Venue</th><th>Status</th></tr>
+  {% for m in rows %}<tr><td>{{ m.match_date|d }}</td><td>{{ m.format_code }}</td>
+    <td><a href="{{ url_for('match_page', mid=m.match_id) }}">{{ m.teams }}</a></td>
+    <td><a href="{{ url_for('series_page', sid=m.series_id) }}">{{ m.series_name }}</a></td><td>{{ m.ground }}, {{ m.city }}</td>
+    <td><span class="badge {{ m.status|lower }}">{{ m.status }}</span></td></tr>
+  {% else %}<tr><td colspan="6">No matches found.</td></tr>{% endfor %}
+</table>
+{% endblock %}
