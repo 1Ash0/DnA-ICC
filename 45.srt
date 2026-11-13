@@ -1,0 +1,336 @@
+1
+00:00:00,000 --> 00:00:07,291
+This is team 45's ICC Rankings project. It is a MySQL 8
+database with a Python Flask backend, and the web
+
+2
+00:00:07,291 --> 00:00:13,262
+interface is modelled on the I C C rankings website. On the
+right is the mysql client.
+
+3
+00:00:13,862 --> 00:00:20,733
+All data was taken from the I C C website: ranking tables at
+three dates, player profiles, and real match
+
+4
+00:00:20,733 --> 00:00:24,660
+scorecards. The client shows how many rows each table holds.
+
+5
+00:00:25,260 --> 00:00:28,843
+The main pages are team rankings, player rankings,
+
+6
+00:00:29,443 --> 00:00:31,413
+matches with scorecards,
+
+7
+00:00:32,013 --> 00:00:34,302
+and player and team profiles.
+
+8
+00:00:34,902 --> 00:00:45,161
+Query one, team rankings. Men's Test: South Africa, 23
+matches, 2860 points, rating 124, exactly as on the I C
+
+9
+00:00:45,161 --> 00:00:52,343
+C site. Rating is points divided by matches, and rank uses a
+window function.
+
+10
+00:00:52,943 --> 00:00:58,746
+The rank date filter shows an earlier snapshot, with
+movement arrows computed against the previous table.
+
+11
+00:00:59,346 --> 00:01:03,420
+The tabs switch gender and format, here women's T20I.
+
+12
+00:01:04,020 --> 00:01:10,064
+Query two, player rankings. Men's ODI batting, with Shubman
+Gill on top.
+
+13
+00:01:10,664 --> 00:01:16,686
+The all rounder table is derived in SQL as batting points
+times bowling points divided by a thousand, which
+
+14
+00:01:16,686 --> 00:01:18,262
+matches the website exactly.
+
+15
+00:01:18,862 --> 00:01:24,260
+Query three, search. Typing k o h finds Kohli by partial
+name.
+
+16
+00:01:24,860 --> 00:01:30,702
+Searching keeper finds players by role, and teams are
+matched by name or code with their current format
+
+17
+00:01:30,702 --> 00:01:31,099
+status.
+
+18
+00:01:31,699 --> 00:01:39,357
+Query four, the player profile. Age is derived from date of
+birth, with styles, current rank in every table,
+
+19
+00:01:39,957 --> 00:01:45,259
+rating history with the change from the previous snapshot,
+and career runs and wickets summed from the
+
+20
+00:01:45,259 --> 00:01:45,830
+scorecards.
+
+21
+00:01:46,430 --> 00:01:53,783
+Query five, the team profile for India: format status
+history, win and loss record, and top performers.
+
+22
+00:01:54,383 --> 00:01:59,357
+It also shows the rating trend in each format, with the
+change between snapshots.
+
+23
+00:01:59,957 --> 00:02:06,665
+Query six, matches. Filter by format, status and gender,
+here completed ODIs.
+
+24
+00:02:07,265 --> 00:02:12,929
+A match page shows both teams, the venue, the result and
+every player's batting and bowling figures.
+
+25
+00:02:13,529 --> 00:02:21,205
+Query seven, head to head. India against New Zealand: wins,
+losses and draws counted with aggregates, and the
+
+26
+00:02:21,205 --> 00:02:22,332
+list of matches.
+
+27
+00:02:22,932 --> 00:02:30,220
+Query eight, player comparison. Gill and Kohli side by side,
+latest ratings per format and recorded runs.
+
+28
+00:02:30,820 --> 00:02:35,438
+Query nine, the players who improved most between two chosen
+rank dates.
+
+29
+00:02:36,038 --> 00:02:43,083
+Query ten, a series report: its matches, top run scorers and
+wicket takers, and each team's rating before and
+
+30
+00:02:43,083 --> 00:02:44,181
+after the series.
+
+31
+00:02:44,781 --> 00:02:51,915
+Query eleven, statistics: the highest, lowest and average
+team rating per table and date, teams with no recent
+
+32
+00:02:51,915 --> 00:02:54,574
+match, and ranked teams per I C C member.
+
+33
+00:02:55,174 --> 00:03:01,625
+Query twelve, analyst workload: rating rows published per
+user per month, grouped under their supervisor using
+
+34
+00:03:01,625 --> 00:03:03,267
+the recursive user relation.
+
+35
+00:03:03,867 --> 00:03:11,870
+Now the updates. First, create. Ireland has no Test rating
+yet: the query returns an empty set.
+
+36
+00:03:12,470 --> 00:03:18,073
+On Ireland's page we publish a Test snapshot dated today, 10
+matches and 300 points.
+
+37
+00:03:18,673 --> 00:03:22,757
+The app confirms it, and re-running the same query shows the
+new row.
+
+38
+00:03:23,357 --> 00:03:26,171
+Ireland now appears in the men's Test table.
+
+39
+00:03:26,771 --> 00:03:33,400
+Second create: a player rating for Abhishek Sharma. Here are
+his current T20I batting ratings.
+
+40
+00:03:33,1000 --> 00:03:41,028
+A rating of 1500 is rejected by the check constraint,
+because ratings must be between 0 and 1000.
+
+41
+00:03:41,628 --> 00:03:46,916
+With 891 the insert succeeds, and the same query now shows
+today's row.
+
+42
+00:03:47,516 --> 00:03:53,355
+Third create: adding a player. Player 900001 does not exist
+yet.
+
+43
+00:03:53,955 --> 00:03:59,268
+If the gender does not match the team, a trigger rejects it
+and the whole transaction rolls back.
+
+44
+00:03:59,868 --> 00:04:05,152
+With the correct gender, the player, the role and the team
+spell are inserted in one transaction.
+
+45
+00:04:05,752 --> 00:04:12,260
+Now the updates. India won this match against New Zealand,
+and neither team's rating needs recomputing.
+
+46
+00:04:12,860 --> 00:04:17,828
+Setting both teams to won is rejected by a trigger, because
+the results must agree.
+
+47
+00:04:18,428 --> 00:04:25,158
+A consistent change succeeds. The results are swapped, and
+the trigger flags both teams' latest ratings for
+
+48
+00:04:25,158 --> 00:04:25,786
+recompute.
+
+49
+00:04:26,386 --> 00:04:29,790
+The rankings table now shows the needs recompute badge.
+
+50
+00:04:30,390 --> 00:04:34,554
+Retiring a player: Abhishek Sharma has no retired formats.
+
+51
+00:04:35,154 --> 00:04:40,183
+We retire him from T20Is today, and the query shows the new
+retirement row.
+
+52
+00:04:40,783 --> 00:04:46,046
+He disappears from the current T20I batting table, while his
+rating history is kept.
+
+53
+00:04:46,646 --> 00:04:51,215
+Changing a team: the new player currently represents India
+with an open spell.
+
+54
+00:04:51,815 --> 00:04:58,028
+After moving him to Nepal, the old spell is closed with an
+end date and a new spell is opened, atomically.
+
+55
+00:04:58,628 --> 00:05:06,763
+Ending a format status: Zimbabwe currently holds Test
+status, and its earlier 1992 to 2006 period is kept as
+
+56
+00:05:06,763 --> 00:05:07,366
+history.
+
+57
+00:05:07,966 --> 00:05:13,139
+After ending it today, the end date is set and the latest
+Test rating is flagged for recompute.
+
+58
+00:05:13,739 --> 00:05:19,638
+Publishing a new Zimbabwe Test rating is now rejected,
+because the team no longer holds the status.
+
+59
+00:05:20,238 --> 00:05:24,956
+Correcting a snapshot: India's ODI rating is still flagged
+for recompute.
+
+60
+00:05:25,556 --> 00:05:29,600
+After saving the corrected points, the update clears the
+flag.
+
+61
+00:05:30,200 --> 00:05:40,712
+Now the deletes. Match 274664 is scheduled, and match 271652
+is completed.
+
+62
+00:05:41,312 --> 00:05:43,771
+Deleting the scheduled match succeeds.
+
+63
+00:05:44,371 --> 00:05:49,762
+Deleting the completed match is refused by a trigger. The
+query shows the scheduled match and its
+
+64
+00:05:49,762 --> 00:05:52,819
+participations are gone, and the completed one remains.
+
+65
+00:05:53,419 --> 00:05:57,987
+Deleting a rating snapshot: here is the Ireland Test row
+created earlier.
+
+66
+00:05:58,587 --> 00:06:02,261
+After deleting it, the same query returns an empty set.
+
+67
+00:06:02,861 --> 00:06:08,374
+Deleting Shubman Gill is refused, because foreign keys
+restrict deleting a player with ratings and
+
+68
+00:06:08,374 --> 00:06:09,049
+appearances.
+
+69
+00:06:09,649 --> 00:06:12,208
+The newly added player has no history.
+
+70
+00:06:12,808 --> 00:06:19,456
+So the delete succeeds, and his role and team spells cascade
+with him. The query returns an empty set.
+
+71
+00:06:20,056 --> 00:06:26,983
+Every query and update is raw parameterised SQL in queries
+dot py, run through PyMySQL, and constraint
+
+72
+00:06:26,983 --> 00:06:30,379
+violations are shown as clear messages. Thank you.
