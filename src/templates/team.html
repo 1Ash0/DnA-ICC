@@ -37,7 +37,7 @@
       <details><summary>edit</summary>
         <form method="post" action="{{ url_for('team_rating_edit', tid=t.team_id) }}">
           <input type="hidden" name="format_code" value="{{ r.format_code }}"><input type="hidden" name="as_of_date" value="{{ r.as_of_date }}">
-          <input type="number" name="matches" value="{{ r.matches }}" style="width:5em"> <input type="number" name="points" value="{{ r.points }}" style="width:6em"> <button>Save</button>
+          <input type="number" name="match_count" value="{{ r.matches }}" style="width:5em"> <input type="number" name="points" value="{{ r.points }}" style="width:6em"> <button>Save</button>
         </form></details>
       <form method="post" action="{{ url_for('team_rating_delete', tid=t.team_id) }}" onsubmit="return confirm('Delete this snapshot?')">
         <input type="hidden" name="format_code" value="{{ r.format_code }}"><input type="hidden" name="as_of_date" value="{{ r.as_of_date }}"><button class="danger small">delete</button></form>
@@ -67,7 +67,7 @@
       <input type="hidden" name="team_id" value="{{ t.team_id }}">
       <select name="format_code">{% for f in ['TEST','ODI','T20I'] %}<option>{{ f }}</option>{% endfor %}</select>
       <input type="date" name="as_of_date" value="{{ today }}" required>
-      <input type="number" name="matches" placeholder="matches" required style="width:6em">
+      <input type="number" name="match_count" placeholder="matches" required style="width:6em">
       <input type="number" name="points" placeholder="points" required style="width:6em">
       <select name="update_trigger"><option>Weekly</option><option>Annual</option><option>Match result</option><option>Status change</option></select>
       <select name="published_by"><option value="1">rk.admin</option><option value="2">men.analyst</option><option value="3">women.analyst</option></select>

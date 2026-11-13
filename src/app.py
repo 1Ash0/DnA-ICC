@@ -309,7 +309,7 @@ def team_rating_new():
     try:
         tid, fmt = form_int("team_id"), form_text("format_code")
         date = form_date("as_of_date")
-        matches, points = form_int("matches"), form_int("points")
+        matches, points = form_int("match_count"), form_int("points")
         trigger, user = form_text("update_trigger"), form_int("published_by")
     except ValueError as e:
         flash(str(e), "error")
@@ -403,7 +403,7 @@ def team_status_end(tid):
 def team_rating_edit(tid):
     try:
         fmt, date = form_text("format_code"), form_date("as_of_date")
-        matches, points = form_int("matches"), form_int("points")
+        matches, points = form_int("match_count"), form_int("points")
     except ValueError as e:
         flash(str(e), "error")
         return redirect(url_for("team_page", tid=tid))

@@ -36,7 +36,7 @@
     <select name="team_id">{% for t in teams %}<option value="{{ t.team_id }}">{{ t.team_name }}</option>{% endfor %}</select>
     <select name="format_code">{% for f in ['TEST','ODI','T20I'] %}<option>{{ f }}</option>{% endfor %}</select>
     <input type="date" name="as_of_date" value="{{ today }}" required>
-    <input type="number" name="matches" placeholder="matches" required>
+    <input type="number" name="match_count" placeholder="matches" required>
     <input type="number" name="points" placeholder="points" required>
     <select name="update_trigger"><option>Weekly</option><option>Annual</option><option>Match result</option><option>Status change</option></select>
     <select name="published_by">{% for u in users %}<option value="{{ u.user_id }}">{{ u.username }}</option>{% endfor %}</select>
